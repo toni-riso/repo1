@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Test de HTML</title>
+  <style>
+    body { font-family: Arial; padding: 20px; }
+    .pregunta { margin-bottom: 20px; }
+    button { padding: 10px 15px; font-size: 16px; cursor: pointer; }
+    #resultado { margin-top: 20px; font-weight: bold; }
+  </style>
+</head>
+<body>
+
+<h1>Test sobre HTML</h1>
+
+<form id="quiz">
+
+<div class="pregunta">
+  <p>1. ¿Quién fue el creador de HTML?</p>
+  <label><input type="radio" name="q1" value="a"> Bill Gates</label><br>
+  <label><input type="radio" name="q1" value="b"> Steve Jobs</label><br>
+  <label><input type="radio" name="q1" value="c"> Tim Berners-Lee</label><br>
+  <label><input type="radio" name="q1" value="d"> Mark Zuckerberg</label>
+</div>
+
+<div class="pregunta">
+  <p>2. ¿Cuál es la etiqueta correcta para crear un enlace?</p>
+  <label><input type="radio" name="q2" value="a"> &lt;link&gt;</label><br>
+  <label><input type="radio" name="q2" value="b"> &lt;a&gt;</label><br>
+  <label><input type="radio" name="q2" value="c"> &lt;href&gt;</label><br>
+  <label><input type="radio" name="q2" value="d"> &lt;url&gt;</label>
+</div>
+
+<div class="pregunta">
+  <p>3. ¿Qué etiqueta se usa para insertar una imagen?</p>
+  <label><input type="radio" name="q3" value="a"> &lt;img&gt;</label><br>
+  <label><input type="radio" name="q3" value="b"> &lt;picture&gt;</label><br>
+  <label><input type="radio" name="q3" value="c"> &lt;image&gt;</label><br>
+  <label><input type="radio" name="q3" value="d"> &lt;src&gt;</label>
+</div>
+
+<div class="pregunta">
+  <p>4. ¿Qué etiqueta define un párrafo?</p>
+  <label><input type="radio" name="q4" value="a"> &lt;para&gt;</label><br>
+  <label><input type="radio" name="q4" value="b"> &lt;p&gt;</label><br>
+  <label><input type="radio" name="q4" value="c"> &lt;text&gt;</label><br>
+  <label><input type="radio" name="q4" value="d"> &lt;paragraph&gt;</label>
+</div>
+
+<div class="pregunta">
+  <p>5. ¿Qué etiqueta se usa para crear una lista ordenada?</p>
+  <label><input type="radio" name="q5" value="a"> &lt;ul&gt;</label><br>
+  <label><input type="radio" name="q5" value="b"> &lt;list&gt;</label><br>
+  <label><input type="radio" name="q5" value="c"> &lt;ol&gt;</label><br>
+  <label><input type="radio" name="q5" value="d"> &lt;li&gt;</label>
+</div>
+
+<button type="button" onclick="comprobar()">Comprobar respuestas</button>
+
+</form>
+
+<p id="resultado"></p>
+
+<script>
+function comprobar() {
+  const respuestas = {
+    q1: 'c',
+    q2: 'b',
+    q3: 'a',
+    q4: 'b',
+    q5: 'c'
+  };
+
+  let puntuacion = 0;
+
+  for (let q in respuestas) {
+    const seleccion = document.querySelector(`input[name="${q}"]:checked`);
+    if (seleccion && seleccion.value === respuestas[q]) {
+      puntuacion++;
+    }
+  }
+
+  document.getElementById('resultado').textContent =
+    'Has acertado ' + puntuacion + ' de 5 preguntas.';
+}
+</script>
+
+</body>
+</html>
