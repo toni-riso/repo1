@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Tipos de Datos en Python</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="grid">
+    <div class="contenedor">
+        <h1>Test: Tipos de Datos en Python</h1>
+
+        <form id="quiz">
+
+            <div class="pregunta">
+                <p>1. ¿Qué tipo de dato representa únicamente los valores True y False?</p>
+                <label><input type="radio" name="p1" value="a"> int</label>
+                <label><input type="radio" name="p1" value="b"> str</label>
+                <label><input type="radio" name="p1" value="c"> bool</label>
+                <label><input type="radio" name="p1" value="d"> list</label>
+            </div>
+
+            <div class="pregunta">
+                <p>2. ¿Cuál contiene un número entero?</p>
+                <label><input type="radio" name="p2" value="a"> x = "15"</label>
+                <label><input type="radio" name="p2" value="b"> x = 15</label>
+                <label><input type="radio" name="p2" value="c"> x = 15.0</label>
+                <label><input type="radio" name="p2" value="d"> x = True</label>
+            </div>
+
+            <div class="pregunta">
+                <p>3. ¿Qué tipo de dato es "Hola mundo"?</p>
+                <label><input type="radio" name="p3" value="a"> bool</label>
+                <label><input type="radio" name="p3" value="b"> int</label>
+                <label><input type="radio" name="p3" value="c"> str</label>
+                <label><input type="radio" name="p3" value="d"> tuple</label>
+            </div>
+
+            <div class="pregunta">
+                <p>4. ¿Cuál define una lista?</p>
+                <label><input type="radio" name="p4" value="a">(1,2,3)</label>
+                <label><input type="radio" name="p4" value="b">{1,2,3}</label>
+                <label><input type="radio" name="p4" value="c">[1,2,3]</label>
+                <label><input type="radio" name="p4" value="d">"1,2,3"</label>
+            </div>
+
+            <div class="pregunta">
+                <p>5. ¿Cuál define una tupla?</p>
+                <label><input type="radio" name="p5" value="a">(1,2,3)</label>
+                <label><input type="radio" name="p5" value="b">[1,2,3]</label>
+                <label><input type="radio" name="p5" value="c">"1,2,3"</label>
+                <label><input type="radio" name="p5" value="d">True</label>
+            </div>
+
+            <div class="pregunta">
+                <p>6. ¿Qué resultado devuelve 5 > 3?</p>
+                <label><input type="radio" name="p6" value="a">2</label>
+                <label><input type="radio" name="p6" value="b">"True"</label>
+                <label><input type="radio" name="p6" value="c">True</label>
+                <label><input type="radio" name="p6" value="d">False</label>
+            </div>
+
+            <div class="pregunta">
+                <p>7. ¿Qué tipo es edad = 16?</p>
+                <label><input type="radio" name="p7" value="a">bool</label>
+                <label><input type="radio" name="p7" value="b">int</label>
+                <label><input type="radio" name="p7" value="c">str</label>
+                <label><input type="radio" name="p7" value="d">list</label>
+            </div>
+
+            <div class="pregunta">
+                <p>8. ¿Cómo se accede al primer elemento de una lista?</p>
+                <label><input type="radio" name="p8" value="a">colores[1]</label>
+                <label><input type="radio" name="p8" value="b">colores[2]</label>
+                <label><input type="radio" name="p8" value="c">colores[0]</label>
+                <label><input type="radio" name="p8" value="d">colores[-2]</label>
+            </div>
+
+            <div class="pregunta">
+                <p>9. ¿Cuál es correcta?</p>
+                <label><input type="radio" name="p9" value="a">Las listas usan ()</label>
+                <label><input type="radio" name="p9" value="b">Las tuplas usan []</label>
+                <label><input type="radio" name="p9" value="c">Los strings se escriben entre comillas</label>
+                <label><input type="radio" name="p9" value="d">Los booleanos contienen números enteros</label>
+            </div>
+
+            <div class="pregunta">
+                <p>10. ¿Qué tipo es ("lunes", "martes", "miércoles")?</p>
+                <label><input type="radio" name="p10" value="a">str</label>
+                <label><input type="radio" name="p10" value="b">list</label>
+                <label><input type="radio" name="p10" value="c">bool</label>
+                <label><input type="radio" name="p10" value="d">tuple</label>
+            </div>
+
+            <button type="button" onclick="corregir()">Corregir examen</button>
+    <script src="funciones.js"></script>
+
+        </form>
+
+        <div id="resultado"></div>
+
+    </div>
+
+</div>
+</body>
+</html>
