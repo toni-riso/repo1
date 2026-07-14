@@ -2,8 +2,10 @@
 Bienvenid@s al primer repositorio creado como parte de un curso sobre "VibeCoding". 
 # 🐍 Test de Tipos de Datos en Python
 ## Introducción
+
 Los tipos de datos son las distintas formas que tiene Python de almacenar información. Conocerlos es fundamental para poder crear variables, realizar operaciones y construir programas correctamente.
 En este cuestionario pondrás a prueba tus conocimientos sobre algunos de los tipos de datos más importantes de Python: booleanos, enteros, cadenas de texto, listas y tuplas.
+
 ---
 # 📚 Tipos de datos básicos
 ## ✅ Booleano (`bool`)
