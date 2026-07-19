@@ -1,164 +1,589 @@
-function corregir() {
+/* =====================================================
+   VARIABLES GLOBALES
+===================================================== */
 
-    const respuestasCorrectas = {
-        p1: "c",
-        p2: "b",
-        p3: "c",
-        p4: "c",
-        p5: "a",
-        p6: "c",
-        p7: "b",
-        p8: "c",
-        p9: "c",
-        p10: "d"
-    };
+let fase = 1;
+let indice = 0;
 
-    const explicaciones = {
-        p1: "El tipo bool solo puede almacenar los valores True y False.",
-        p2: "15 es un número entero (int). '15' entre comillas sería un string.",
-        p3: "Todo texto entre comillas pertenece al tipo string (str).",
-        p4: "Las listas se escriben entre corchetes [], por ejemplo [1, 2, 3].",
-        p5: "Las tuplas se escriben entre paréntesis (), por ejemplo (1, 2, 3).",
-        p6: "La comparación 5 > 3 es verdadera, por lo que devuelve True.",
-        p7: "16 es un número entero y por tanto pertenece al tipo int.",
-        p8: "En Python los índices comienzan en 0, por eso el primer elemento es colores[0].",
-        p9: "Los strings se escriben entre comillas simples o dobles.",
-        p10: "Los paréntesis indican que el dato es una tupla."
-    };
+let nivel = "";
 
-    const temas = {
-        p1: "Booleanos",
-        p2: "Enteros",
-        p3: "Strings",
-        p4: "Listas",
-        p5: "Tuplas",
-        p6: "Booleanos",
-        p7: "Enteros",
-        p8: "Listas",
-        p9: "Strings",
-        p10: "Tuplas"
-    };
+let historial = [];
 
-    let puntuacion = 0;
-    let aciertos = 0;
-    let errores = 0;
+let aciertosDiagnostico = 0;
+let aciertosBloque2 = 0;
+let aciertosBloque3 = 0;
 
-    let conceptosRepasar = new Set();
+let preguntasActuales = diagnostico;
 
-    // Limpiar correcciones previas
-    document.querySelectorAll("label").forEach(label => {
-        label.classList.remove("correcta", "incorrecta");
-    });
+const quiz = document.getElementById("quiz");
+const botonSiguiente = document.getElementById("siguiente");
 
-    document.querySelectorAll(".explicacion").forEach(el => el.remove());
+/* =====================================================
+   INICIO
+===================================================== */
 
-    for (let pregunta in respuestasCorrectas) {
+document
+.getElementById("comenzar")
+.addEventListener("click", iniciarEvaluacion);
 
-        const opciones = document.querySelectorAll(
-            `input[name="${pregunta}"]`
-        );
+botonSiguiente.addEventListener(
+"click",
+evaluarRespuesta
+);
 
-        let respuestaUsuario = null;
-        let preguntaDiv = opciones[0].closest(".pregunta");
+/* =====================================================
+   FUNCIONES INICIALES
+===================================================== */
 
-        opciones.forEach(opcion => {
+function iniciarEvaluacion(){
 
-            const label = opcion.parentElement;
+    document
+    .getElementById("pantallaInicial")
+    .style.display = "none";
 
-            if (opcion.value === respuestasCorrectas[pregunta]) {
-                label.classList.add("correcta");
-            }
+    document
+    .getElementById("contenido")
+    .classList.remove("oculto");
 
-            if (opcion.checked) {
-                respuestaUsuario = opcion;
-            }
-        });
+    mostrarPregunta();
+}
 
-        // Crear explicación
-        const explicacion = document.createElement("div");
-        explicacion.classList.add("explicacion");
+/* =====================================================
+   MOSTRAR PREGUNTA
+===================================================== */
 
-        if (respuestaUsuario) {
+function mostrarPregunta(){
 
-            if (respuestaUsuario.value === respuestasCorrectas[pregunta]) {
+    actualizarBarra();
 
-                puntuacion++;
-                aciertos++;
+    const pregunta =
+    preguntasActuales[indice];
 
-                explicacion.innerHTML =
-                    `✅ Correcta. ${explicaciones[pregunta]}`;
-
-            } else {
-
-                puntuacion--;
-                errores++;
-
-                respuestaUsuario.parentElement.classList.remove("correcta");
-                respuestaUsuario.parentElement.classList.add("incorrecta");
-
-                conceptosRepasar.add(temas[pregunta]);
-
-                explicacion.innerHTML =
-                    `❌ Incorrecta. ${explicaciones[pregunta]}`;
-            }
-
-        } else {
-
-            conceptosRepasar.add(temas[pregunta]);
-
-            explicacion.innerHTML =
-                `⚠️ No respondida. ${explicaciones[pregunta]}`;
-        }
-
-        preguntaDiv.appendChild(explicacion);
-    }
-
-    // Mensaje personalizado
-    let mensaje = "";
-
-    if (puntuacion >= 8) {
-        mensaje = "🏆 ¡Excelente trabajo! Dominas muy bien los tipos de datos en Python.";
-    } else if (puntuacion >= 5) {
-        mensaje = "👍 Buen trabajo. Has comprendido la mayor parte de los conceptos.";
-    } else if (puntuacion >= 0) {
-        mensaje = "📚 Necesitas repasar algunos conceptos para afianzar el aprendizaje.";
-    } else {
-        mensaje = "💪 No te desanimes. Repasa los contenidos y vuelve a intentarlo.";
-    }
-
-    // Generar informe
-    let informe = `
-        <h2>📊 Informe de resultados</h2>
-
-        <p><strong>Puntuación:</strong> ${puntuacion}</p>
-
-        <p><strong>✅ Aciertos:</strong> ${aciertos}</p>
-
-        <p><strong>❌ Errores:</strong> ${errores}</p>
-
-        <p>${mensaje}</p>
+    let html = `
+        <div class="pregunta">
+            <h2>${pregunta.pregunta}</h2>
     `;
 
-    // Conceptos a repasar
-    if (conceptosRepasar.size > 0) {
+    if(pregunta.tipo === "radio"){
 
-        informe += `
-            <h3>📖 Conceptos recomendados para repasar</h3>
-            <ul>
-        `;
+        pregunta.opciones.forEach(opcion => {
 
-        conceptosRepasar.forEach(concepto => {
-            informe += `<li>${concepto}</li>`;
+            html += `
+                <label>
+                    <input
+                        type="radio"
+                        name="respuesta"
+                        value="${opcion}">
+                    ${opcion}
+                </label>
+            `;
         });
-
-        informe += `</ul>`;
     }
 
-    document.getElementById("resultado").innerHTML = informe;
+    else if(pregunta.tipo === "texto"){
 
-    // Desactivar botón
-    const boton = document.querySelector("button");
+        html += `
+            <input
+                type="text"
+                id="respuestaTexto"
+                placeholder="Escribe tu respuesta">
+        `;
+    }
 
-    boton.disabled = true;
-    boton.textContent = "✅ Examen corregido";
+    else if(pregunta.tipo === "codigo"){
+
+        html += `
+            <textarea
+                id="respuestaTexto"
+                placeholder="Escribe el código aquí">
+            </textarea>
+        `;
+    }
+
+    html += "</div>";
+
+    quiz.innerHTML = html;
+
+    mostrarEstadoActual();
 }
+
+/* =====================================================
+   INFORMACIÓN DE FASE
+===================================================== */
+
+function mostrarEstadoActual(){
+
+    let texto = "";
+
+    if(fase === 1){
+
+        texto =
+        "🎯 Diagnóstico de nivel (5 preguntas)";
+    }
+
+    if(fase === 2){
+
+        texto =
+        `📘 Nivel ${nivel} - Bloque 1`;
+    }
+
+    if(fase === 3){
+
+        texto =
+        `📗 Nivel ${nivel} - Bloque 2`;
+    }
+
+    document
+    .getElementById("nivelInfo")
+    .innerHTML = texto;
+}
+
+/* =====================================================
+   EVALUAR RESPUESTA
+===================================================== */
+
+function evaluarRespuesta(){
+
+    const pregunta =
+    preguntasActuales[indice];
+
+    let respuestaUsuario = "";
+
+    let correcta = false;
+
+    if(pregunta.tipo === "radio"){
+
+        const seleccionada =
+        document.querySelector(
+            'input[name="respuesta"]:checked'
+        );
+
+        if(!seleccionada){
+
+            alert("Debes seleccionar una respuesta.");
+            return;
+        }
+
+        respuestaUsuario =
+        seleccionada.value;
+
+        correcta =
+        respuestaUsuario ===
+        pregunta.correcta;
+    }
+
+    else{
+
+        const entrada =
+        document.getElementById(
+            "respuestaTexto"
+        );
+
+        if(!entrada.value.trim()){
+
+            alert("Debes escribir una respuesta.");
+            return;
+        }
+
+        respuestaUsuario =
+        entrada.value.trim();
+
+        correcta =
+        respuestaUsuario
+        .toLowerCase()
+        .includes(
+            pregunta.correcta.toLowerCase()
+        );
+    }
+
+    guardarRespuesta(
+        pregunta,
+        respuestaUsuario,
+        correcta
+    );
+
+    if(fase === 1 && correcta){
+
+        aciertosDiagnostico++;
+    }
+
+    if(fase === 2 && correcta){
+
+        aciertosBloque2++;
+    }
+
+    if(fase === 3 && correcta){
+
+        aciertosBloque3++;
+    }
+
+    indice++;
+
+    if(indice < preguntasActuales.length){
+
+        mostrarPregunta();
+        return;
+    }
+
+    avanzarFase();
+}
+
+/* =====================================================
+   GUARDAR RESPUESTA
+===================================================== */
+
+function guardarRespuesta(
+    pregunta,
+    respuestaUsuario,
+    correcta
+){
+
+    historial.push({
+
+        pregunta:
+        pregunta.pregunta,
+
+        tema:
+        pregunta.tema,
+
+        respuestaUsuario:
+        respuestaUsuario,
+
+        respuestaCorrecta:
+        pregunta.correcta,
+
+        correcta:
+        correcta,
+
+        explicacion:
+        pregunta.explicacion,
+
+        recomendacion:
+        pregunta.recomendacion
+    });
+}
+
+/* =====================================================
+   CAMBIO DE FASE
+===================================================== */
+
+function avanzarFase(){
+
+    if(fase === 1){
+
+        mostrarClasificacion();
+
+        return;
+    }
+
+    if(fase === 2){
+
+        pasarABloqueFinal();
+
+        return;
+    }
+
+    if(fase === 3){
+
+        mostrarResultadoFinal();
+    }
+}
+
+/* =====================================================
+   CLASIFICACIÓN
+===================================================== */
+
+function mostrarClasificacion(){
+
+    const fortalezas =
+    historial
+    .filter(r => r.correcta)
+    .map(r => r.tema);
+
+    const mejorar =
+    historial
+    .filter(r => !r.correcta)
+    .map(r => r.tema);
+
+    let justificacion = "";
+
+    if(aciertosDiagnostico <= 2){
+
+        nivel = "🟢 Básico";
+
+        preguntasActuales =
+        basico;
+
+        justificacion =
+        "Necesitas reforzar conceptos fundamentales de Python antes de avanzar a contenidos más complejos.";
+    }
+
+    else if(aciertosDiagnostico <= 4){
+
+        nivel = "🟠 Intermedio";
+
+        preguntasActuales =
+        intermedio;
+
+        justificacion =
+        "Dominas los conceptos esenciales pero todavía debes afianzar estructuras de control y colecciones de datos.";
+    }
+
+    else{
+
+        nivel = "🔴 Avanzado";
+
+        preguntasActuales =
+        avanzado;
+
+        justificacion =
+        "Has demostrado un dominio sólido de los fundamentos y estás preparado para resolver problemas más complejos.";
+    }
+
+    fase = 2;
+    indice = 0;
+
+    quiz.innerHTML = `
+    <div class="tarjeta">
+
+        <h2>${nivel}</h2>
+
+        <p>
+        Has acertado
+        <strong>
+        ${aciertosDiagnostico}/5
+        </strong>
+        preguntas.
+        </p>
+
+        <h3>✅ Fortalezas</h3>
+
+        <ul>
+        ${
+            fortalezas.length
+            ? fortalezas.map(
+                x => `<li>${x}</li>`
+              ).join("")
+            : "<li>Ninguna detectada</li>"
+        }
+        </ul>
+
+        <h3>📚 Aspectos a reforzar</h3>
+
+        <ul>
+        ${
+            mejorar.length
+            ? mejorar.map(
+                x => `<li>${x}</li>`
+              ).join("")
+            : "<li>Ninguno</li>"
+        }
+        </ul>
+
+        <h3>🎯 Justificación</h3>
+
+        <p>${justificacion}</p>
+
+        <p>
+        Las siguientes
+        10 preguntas serán
+        diferentes y estarán
+        adaptadas a tu nivel.
+        </p>
+
+        <button onclick="continuarNivel()">
+            Continuar
+        </button>
+
+    </div>
+    `;
+
+    botonSiguiente.style.display =
+    "none";
+}
+
+function continuarNivel(){
+
+    botonSiguiente.style.display =
+    "block";
+
+    mostrarPregunta();
+}
+
+window.continuarNivel =
+continuarNivel;
+
+/* =====================================================
+   BLOQUE FINAL
+===================================================== */
+
+function pasarABloqueFinal(){
+
+    fase = 3;
+
+    indice = 0;
+
+    if(nivel.includes("Básico")){
+
+        preguntasActuales =
+        finalBasico;
+    }
+
+    if(nivel.includes("Intermedio")){
+
+        preguntasActuales =
+        finalIntermedio;
+    }
+
+    if(nivel.includes("Avanzado")){
+
+        preguntasActuales =
+        finalAvanzado;
+    }
+
+    mostrarPregunta();
+}
+
+/* =====================================================
+   BARRA DE PROGRESO
+===================================================== */
+
+function actualizarBarra(){
+
+    let realizadas =
+    ((fase - 1) * 5) +
+    indice;
+
+    let porcentaje =
+    (realizadas / 15) * 100;
+
+    document
+    .getElementById("barra")
+    .style.width =
+    porcentaje + "%";
+}
+
+/* =====================================================
+   RESULTADO FINAL
+===================================================== */
+
+function mostrarResultadoFinal(){
+
+    document
+    .getElementById("barra")
+    .style.width = "100%";
+
+    quiz.innerHTML = "";
+
+    botonSiguiente.style.display =
+    "none";
+
+    const totalEvaluable =
+    aciertosBloque2 +
+    aciertosBloque3;
+
+    const nota =
+    totalEvaluable;
+
+    let html = `
+
+    <h2>📊 Informe Final</h2>
+
+    <p>
+    <strong>Nivel:</strong>
+    ${nivel}
+    </p>
+
+    <p>
+    <strong>Aciertos bloque 1:</strong>
+    ${aciertosBloque2}/5
+    </p>
+
+    <p>
+    <strong>Aciertos bloque 2:</strong>
+    ${aciertosBloque3}/5
+    </p>
+
+    <p>
+    <strong>Nota Final:</strong>
+    ${nota}/10
+    </p>
+
+    <hr>
+
+    <h2>Feedback detallado</h2>
+    `;
+
+    historial.forEach((item,i)=>{
+
+        html += `
+
+        <div class="${
+            item.correcta
+            ? "feedback-correcta"
+            : "feedback-incorrecta"
+        }">
+
+        <h3>
+        Pregunta ${i+1}
+        </h3>
+
+       <div class="estado">
+${
+ item.correcta
+ ? "✅ RESPUESTA CORRECTA"
+ : "❌ RESPUESTA INCORRECTA"
+}
+</div>
+        <p>
+        <strong>Pregunta:</strong>
+        ${item.pregunta}
+        </p>
+
+        <p>
+        <strong>Tu respuesta:</strong>
+        ${item.respuestaUsuario}
+        </p>
+
+        <p>
+        <strong>Respuesta correcta:</strong>
+        ${item.respuestaCorrecta}
+        </p>
+
+        <p>
+        <strong>Explicación:</strong>
+        ${item.explicacion}
+        </p>
+
+        <p>
+        <strong>Recomendación:</strong>
+        ${item.recomendacion}
+        </p>
+
+        </div>
+        `;
+    });
+
+    html += `
+
+    <button onclick="reiniciarTest()">
+        🔄 Reintentar evaluación
+    </button>
+    `;
+
+    document
+    .getElementById("resultado")
+    .innerHTML = html;
+}
+
+/* =====================================================
+   REINICIO
+===================================================== */
+
+function reiniciarTest(){
+
+    location.reload();
+}
+
+window.reiniciarTest =
+reiniciarTest;
