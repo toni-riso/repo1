@@ -1,248 +1,207 @@
-/* ==========================
-   ESTILO OCHENTERO SYNTHWAVE
-   ========================== */
+body{
+    margin:0;
+    padding:20px;
+    font-family:Arial, sans-serif;
 
-@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700&display=swap');
-
-body {
-    margin: 0;
-    padding: 20px;
-    font-family: 'Orbitron', sans-serif;
-
-    background: linear-gradient(
+    background:linear-gradient(
         180deg,
-        #120136 0%,
-        #4b0082 40%,
-        #ff0080 100%
+        #120136,
+        #4b0082,
+        #ff0080
     );
 
-    min-height: 100vh;
-    color: #ffffff;
+    color:white;
+    min-height:100vh;
 }
 
-/* Contenedor principal */
+.contenedor{
+    max-width:1000px;
+    margin:auto;
+}
 
-.contenedor {
-    max-width: 1000px;
-    margin: auto;
-    padding: 30px;
+.tarjeta{
+    background:rgba(0,0,0,.8);
 
-    background: rgba(0, 0, 0, 0.75);
+    padding:30px;
 
-    border: 3px solid #00ffff;
-    border-radius: 15px;
+    border-radius:15px;
+
+    border:2px solid #00ffff;
 
     box-shadow:
-        0 0 10px #00ffff,
-        0 0 25px #00ffff,
-        0 0 50px #ff00ff;
+    0 0 15px #00ffff,
+    0 0 30px #ff00ff;
 }
 
-/* Título */
-
-h1 {
-    text-align: center;
-
-    font-family: 'Press Start 2P', cursive;
-
-    color: #ff00ff;
-
-    font-size: 2rem;
-
-    text-shadow:
-        0 0 5px #ff00ff,
-        0 0 15px #ff00ff,
-        0 0 30px #ff00ff;
-
-    margin-bottom: 40px;
+.oculto{
+    display:none;
 }
 
-/* Preguntas */
-
-.pregunta {
-    margin-bottom: 25px;
-    padding: 20px;
-
-    background-color: rgba(20, 20, 40, 0.8);
-
-    border-left: 6px solid #00ffff;
-    border-radius: 10px;
-
-    transition: all 0.3s ease;
+h1{
+    text-align:center;
 }
 
-.pregunta:hover {
-    transform: translateX(5px);
+#nivelInfo{
+    text-align:center;
+    margin-bottom:20px;
+    font-size:1.3rem;
+    font-weight:bold;
+}
+
+#progreso{
+    width:100%;
+    height:25px;
+
+    background:#222;
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+    margin-bottom:20px;
+}
+
+#barra{
+    width:0%;
+    height:100%;
+
+    background:linear-gradient(
+        90deg,
+        #00ffff,
+        #ff00ff
+    );
+
+    transition:.5s;
+}
+
+.pregunta{
+    background:rgba(255,255,255,.1);
+
+    padding:20px;
+
+    border-radius:15px;
+
+    border-left:5px solid #00ffff;
+
+    margin-bottom:20px;
+}
+
+label{
+    display:block;
+    margin:10px 0;
+}
+
+input[type=text],
+textarea{
+    width:100%;
+    padding:10px;
+
+    border:none;
+
+    border-radius:10px;
+
+    margin-top:10px;
+}
+
+textarea{
+    height:120px;
+}
+
+button{
+    width:100%;
+
+    padding:15px;
+
+    font-size:1rem;
+
+    font-weight:bold;
+
+    border:none;
+
+    border-radius:12px;
+
+    cursor:pointer;
+
+    color:white;
+
+    background:linear-gradient(
+        90deg,
+        #ff00ff,
+        #00ffff
+    );
+}
+
+button:hover{
+    transform:scale(1.02);
+}
+
+.feedback{
+    margin-top:15px;
+    padding:15px;
+    border-radius:10px;
+}
+
+.feedback-correcta{
+    background:linear-gradient(
+        135deg,
+        #1b8a3e,
+        #2ecc71
+    );
+
+    border-left:7px solid #ffffff;
+
+    border-radius:12px;
+
+    padding:20px;
+
+    margin:20px 0;
 
     box-shadow:
-        0 0 10px #00ffff,
-        0 0 20px #00ffff;
+        0 0 15px rgba(46,204,113,.5);
+
+    color:white;
 }
 
-.pregunta p {
-    color: #00ffff;
-    font-size: 1.1rem;
-    font-weight: bold;
-}
+.feedback-incorrecta{
+    background:linear-gradient(
+        135deg,
+        #b22222,
+        #ff4d4d
+    );
 
-/* Opciones */
+    border-left:7px solid #ffffff;
 
-label {
-    display: block;
-    margin: 10px 0;
-    cursor: pointer;
+    border-radius:12px;
 
-    transition: 0.3s;
-}
+    padding:20px;
 
-label:hover {
-    color: #ffff00;
-    text-shadow: 0 0 10px #ffff00;
-}
-
-/* Radios personalizados */
-
-input[type="radio"] {
-    accent-color: #ff00ff;
-    transform: scale(1.2);
-    margin-right: 10px;
-}
-
-/* Botón */
-
-button {
-    display: block;
-    width: 100%;
-    padding: 18px;
-
-    font-family: 'Orbitron', sans-serif;
-    font-size: 1.2rem;
-    font-weight: bold;
-
-    color: #ffffff;
-    background: linear-gradient(90deg, #ff00ff, #00ffff);
-
-    border: none;
-    border-radius: 12px;
-
-    cursor: pointer;
-
-    transition: all 0.3s ease;
-
-    text-transform: uppercase;
-    letter-spacing: 2px;
-}
-
-button:hover {
-    transform: scale(1.03);
+    margin:20px 0;
 
     box-shadow:
-        0 0 10px #ff00ff,
-        0 0 20px #ff00ff,
-        0 0 40px #00ffff;
+        0 0 15px rgba(255,77,77,.5);
+
+    color:white;
 }
 
-button:active {
-    transform: scale(0.98);
+.feedback-correcta h3,
+.feedback-incorrecta h3{
+    margin-top:0;
 }
 
-/* Resultado */
-
-#resultado {
-    margin-top: 30px;
-    padding: 20px;
-
-    text-align: center;
-    font-size: 1.8rem;
-    font-weight: bold;
-
-    border: 2px solid #ffff00;
-    border-radius: 12px;
-
-    background-color: rgba(255, 255, 0, 0.1);
-
-    color: #ffff00;
-
-    text-shadow:
-        0 0 10px #ffff00,
-        0 0 20px #ffff00;
+.feedback-correcta .estado{
+    font-size:1.2rem;
+    font-weight:bold;
 }
 
-/* Responsive */
-
-@media (max-width: 768px) {
-
-    h1 {
-        font-size: 1.2rem;
-        line-height: 1.6;
-    }
-
-    .pregunta {
-        padding: 15px;
-    }
-
-    button {
-        font-size: 1rem;
-    }
-}
-``
-.grid {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 40vh;
-    pointer-events: none;
-
-    background-image:
-        linear-gradient(#ff00ff 1px, transparent 1px),
-        linear-gradient(90deg, #ff00ff 1px, transparent 1px);
-
-    background-size: 50px 50px;
-
-    transform: perspective(300px) rotateX(75deg);
-
-    opacity: 0.25;
+.feedback-incorrecta .estado{
+    font-size:1.2rem;
+    font-weight:bold;
 }
 
-.correcta {
-    background-color: #28a745;
-    color: white;
-    padding: 5px;
-    border-radius: 5px;
+#resultado{
+    margin-top:30px;
 }
 
-.incorrecta {
-    background-color: #dc3545;
-    color: white;
-    padding: 5px;
-    border-radius: 5px;
+hr{
+    border:1px solid rgba(255,255,255,.2);
 }
-
-.explicacion {
-    margin-top: 10px;
-    padding: 10px;
-    border-radius: 8px;
-    background-color: rgba(255,255,255,0.1);
-    font-size: 0.95rem;
-    line-height: 1.4;
-}
-
-button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-}
-
-#resultado {
-    margin-top: 30px;
-    padding: 20px;
-    border: 2px solid #00ffff;
-    border-radius: 12px;
-}
-
-#resultado ul {
-    text-align: left;
-    display: inline-block;
-}
-
-
